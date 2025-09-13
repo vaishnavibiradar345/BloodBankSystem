@@ -1,12 +1,15 @@
+// src/App.jsx
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./Components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Donors from "./pages/Donors";
 import Inventory from "./pages/Inventory";
 import Requests from "./pages/Requests";
+import Drives from "./pages/Drives";
 import Register from "./pages/Register";
 
-function App() {
+export default function App() {
   return (
     <Router>
       <Layout>
@@ -15,11 +18,10 @@ function App() {
           <Route path="/donors" element={<Donors />} />
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/requests" element={<Requests />} />
+          <Route path="/drives" element={<Drives />} />
           <Route path="/register" element={<Register />} />
         </Routes>
       </Layout>
     </Router>
   );
 }
-
-export default App;

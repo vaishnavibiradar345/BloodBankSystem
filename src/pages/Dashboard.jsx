@@ -1,66 +1,30 @@
 // src/pages/Dashboard.jsx
 import React from "react";
 import { Link } from "react-router-dom";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
+
+const bloodData = [
+  { name: "A+", value: 40 },
+  { name: "O+", value: 35 },
+  { name: "B+", value: 15 },
+  { name: "AB+", value: 10 },
+];
+
+const COLORS = ["#ef4444", "#f97316", "#22c55e", "#3b82f6"];
 
 export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-rose-100 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white/90 backdrop-blur border-r p-6 flex flex-col shadow-lg">
-        <div className="mb-10 flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-rose-200 flex items-center justify-center shadow">
-            <span className="text-rose-700 font-bold text-lg">💉</span>
-          </div>
-          <div>
-            <div className="font-bold text-xl text-rose-700">LifeLine</div>
-            <div className="text-xs text-gray-400">Blood Bank</div>
-          </div>
-        </div>
-
-        <nav className="flex-1 space-y-3">
-          <Link to="/" className="block p-3 rounded-lg bg-rose-100 text-rose-700 font-medium shadow-sm">
-            Dashboard
-          </Link>
-          <Link to="/donors" className="block p-3 rounded-lg hover:bg-pink-50">
-            Donors
-          </Link>
-          <Link to="/inventory" className="block p-3 rounded-lg hover:bg-pink-50">
-            Inventory
-          </Link>
-          <Link to="/requests" className="block p-3 rounded-lg hover:bg-pink-50">
-            Requests
-          </Link>
-          <Link to="/drives" className="block p-3 rounded-lg hover:bg-pink-50">
-            Drives
-          </Link>
-          <Link to="/register" className="block p-3 rounded-lg hover:bg-pink-50">
-            Register Donor
-          </Link>
-        </nav>
-
-        <div className="mt-auto pt-6 border-t">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-rose-100"></div>
-            <div>
-              <div className="text-sm font-semibold">Clinic Admin</div>
-              <button className="text-xs text-rose-600">Logout</button>
-            </div>
-          </div>
-        </div>
-      </aside>
-
       {/* Main Content */}
       <main className="flex-1 p-10 space-y-8">
         {/* Top bar */}
         <header className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-extrabold text-rose-700">Dashboard</h1>
-            <p className="text-sm text-gray-500">Monitor donors, inventory, and requests</p>
+      
           </div>
           <div className="flex gap-3">
-            <button className="bg-white border px-4 py-2 rounded-lg shadow-sm hover:bg-gray-50">
-              🔔 Notifications
-            </button>
+          
             <Link
               to="/register"
               className="bg-rose-500 text-white px-4 py-2 rounded-lg shadow hover:bg-rose-600"
@@ -151,8 +115,25 @@ export default function Dashboard() {
               <div className="font-semibold mb-2 text-gray-800">
                 Blood Type Distribution
               </div>
-              <div className="h-32 bg-gradient-to-r from-rose-100 to-pink-100 rounded-lg flex items-center justify-center text-gray-400">
-                [Chart Placeholder]
+              <div className="h-48">
+                <ResponsiveContainer>
+                  <PieChart>
+                    <Pie
+                      data={bloodData}
+                      dataKey="value"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={70}
+                      label
+                    >
+                      {bloodData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
             </div>
 
